@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engine Health Prediction</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: url("{{ url_for('static', filename='background_image.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #f1c40f;
+        }
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+        label {
+            font-weight: bold;
+            color: #f1c40f;
+        }
+        input[type="file"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #bdc3c7;
+            border-radius: 5px;
+            font-size: 16px;
+            background: white;
+            color: black;
+        }
+        .predict-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .predict-button:hover {
+            background-color: #c0392b;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #2ecc71;
+        }
+        .error {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+        }
+        .home-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #3498db;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .home-button:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Engine Health Prediction</h1>
+
+        <form method="POST" action="{{ url_for('predict') }}" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file">Upload CSV File (30 Rows Required):</label>
+                <input type="file" name="file" accept=".csv" required>
+            </div>
+            <button type="submit" class="predict-button">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <p class="result">Prediction: {{ prediction }}</p>
+        {% endif %}
+
+        {% if error %}
+            <p class="error">Error: {{ error }}</p>
+        {% endif %}
+
+        <br> <!-- Line space added -->
+
+        <a href="{{ url_for('home') }}" class="home-button">Back to Home</a>
+    </div>
+
+</body>
+</html>

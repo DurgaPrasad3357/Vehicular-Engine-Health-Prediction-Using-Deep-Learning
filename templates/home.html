@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicular Engine Health Monitoring</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: url("{{ url_for('static', filename='background_image.jpg') }}") no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.7); /* Transparent Black */
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            color: #f1c40f;
+        }
+        .accuracy-container {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        .graph {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            border: 2px solid #bdc3c7;
+            border-radius: 5px;
+        }
+        .predict-button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #e74c3c;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .predict-button:hover {
+            background-color: #c0392b;
+        }
+        .yellow-text {
+            color: #f1c40f;  /* Yellow color for Test Accuracy & Loss */
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Project Title -->
+        <h1>Transformer-Based Deep Learning for Optimized  
+            Vehicular Engine Health Monitoring</h1>
+
+        <!-- Display Saved Graphs -->
+        <h3>Model Performance Graphs</h3>
+        <img src="{{ url_for('static', filename='training_validation_accuracy_hybrid.png') }}" class="graph" alt="Training & Validation Accuracy">
+        <img src="{{ url_for('static', filename='training_validation_loss_hybrid.png') }}" class="graph" alt="Training & Validation Loss">
+
+        <!-- Display Model Accuracies -->
+        <div class="accuracy-container">
+            <h2>Model Accuracies</h2>
+            {% if accuracies %}
+                <p class="yellow-text"><strong>Test Accuracy : </strong> {{ accuracies['Test Accuracy'] }}%</p>
+                <p class="yellow-text"><strong>Test Loss : </strong> {{ accuracies['Test Loss'] }}</p>
+            {% else %}
+                <p>No accuracy data available.</p>
+            {% endif %}
+        </div>
+
+        <!-- Predict Button -->
+        <a href="{{ url_for('predict') }}" class="predict-button">Predict</a>
+    </div>
+
+</body>
+</html>
